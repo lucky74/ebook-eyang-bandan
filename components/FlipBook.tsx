@@ -40,6 +40,7 @@ const FlipBookComponent = () => {
     const bookRef = useRef(null);
     const [images, setImages] = useState<string[]>([]);
     const [isMounted, setIsMounted] = useState(false);
+    const [showSplash, setShowSplash] = useState(true);
 
     useEffect(() => {
         setIsMounted(true);
@@ -49,6 +50,13 @@ const FlipBookComponent = () => {
             imgs.push(`/images/${i}.png`);
         }
         setImages(imgs);
+
+        // Splash screen timer
+        const timer = setTimeout(() => {
+            setShowSplash(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
     }, []);
 
     if (!isMounted) return null;
@@ -60,7 +68,29 @@ const FlipBookComponent = () => {
                  backgroundBlendMode: "multiply"
              }}
         >
-            <div className="absolute top-8 left-8 z-10 flex items-center gap-4">
+            {/* Splash Screen Overlay */}
+            <div 
+                className={`absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#2b2b2b] transition-opacity duration-1000 ${showSplash ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                style={{
+                    backgroundImage: `url("https://www.transparenttextures.com/patterns/wood-pattern.png")`,
+                    backgroundBlendMode: "multiply"
+                }}
+            >
+                <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-[#d4af37] shadow-2xl animate-pulse">
+                    <Image 
+                        src="/images/Logo_Eyang.png" 
+                        alt="Logo Eyang Bandan" 
+                        fill 
+                        className="object-cover"
+                        priority
+                    />
+                </div>
+                <h1 className="mt-8 text-[#d4af37] text-3xl md:text-4xl font-bold font-serif tracking-widest drop-shadow-lg text-center">
+                    Silsilah Keluarga<br/>Eyang Bandan
+                </h1>
+            </div>
+
+            <div className="absolute top-8 left-8 z-10 flex items-center gap-4 transition-opacity duration-1000 delay-500" style={{ opacity: showSplash ? 0 : 1 }}>
                 <div className="w-16 h-16 relative rounded-full overflow-hidden border-2 border-[#d4af37] shadow-lg bg-white/10 backdrop-blur-sm">
                     <Image src="/images/Logo_Eyang.png" alt="Logo" fill className="object-cover" />
                 </div>
@@ -71,7 +101,7 @@ const FlipBookComponent = () => {
             </div>
 
             {/* Book Container */}
-            <div className="relative shadow-2xl rounded-sm flex items-center justify-center">
+            <div className={`relative shadow-2xl rounded-sm flex items-center justify-center transition-all duration-1000 delay-500 ${showSplash ? 'scale-90 opacity-0' : 'scale-100 opacity-100'}`}>
                  {/* @ts-ignore */}
                 <HTMLFlipBook
                     width={450}
