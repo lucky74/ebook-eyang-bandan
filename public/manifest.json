@@ -1,0 +1,22 @@
+{
+  "name": "E-Book Eyang Bandan",
+  "short_name": "E-Book Eyang",
+  "description": "E-Book Keluarga Besar Eyang Bandan",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F3E5AB",
+  "theme_color": "#F3E5AB",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/Logo_Eyang.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/Logo_Eyang.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,12 +1,20 @@
-import type { Metadata } from "next";
-import { Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { Playfair_Display } from "next/font/google";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 const playfair = Playfair_Display({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "E-Book Silsilah Eyang Bandan",
-  description: "E-book keluarga besar Eyang Bandan",
+export const metadata = {
+  title: "E-Book Keluarga Eyang Bandan",
+  description: "Kenangan Keluarga Besar Eyang Bandan",
+  manifest: "/manifest.json",
+  icons: {
+    apple: "/images/Logo_Eyang.png",
+  },
+};
+
+export const viewport = {
+  themeColor: "#F3E5AB",
 };
 
 export default function RootLayout({
@@ -16,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={playfair.className}>{children}</body>
+      <body className={playfair.className}>
+        {children}
+        <BackgroundMusic />
+      </body>
     </html>
   );
 }
